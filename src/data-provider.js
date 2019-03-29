@@ -76,7 +76,7 @@ let physicalStructProvider = ([initialNodes, initialContainers]) => {
                 let imageNameRegex = /([^/]+?)(\:([^/]+))?$/;
                 let imageNameMatches = imageNameRegex.exec(cloned.Spec.ContainerSpec.Image);
                 let tagName = imageNameMatches[3];
-                let dateStamp = dt.getDate() + "/" + (dt.getMonth() + 1) + " " + dt.getHours() + ":" + padStart(dt.getMinutes().toString(), 2, "0");
+                let dateStamp = dt.getDate() + "/" + (dt.getMonth() + 1) + "/" + dt.getFullYear() + " " + dt.getHours() + ":" + padStart(dt.getMinutes().toString(), 2, "0");
                 let startState = cloned.Status.State;
 
 
@@ -84,12 +84,12 @@ let physicalStructProvider = ([initialNodes, initialContainers]) => {
 
                 let imageTag = "<div style='height: 100%; padding: 5px 5px 5px 5px; border: 2px solid " + color + "'>" +
                     "<span class='contname' style='color: white; font-weight: bold;font-size: 12px'>" + serviceName + "</span>" +
-                    "<br/> image : " + imageNameMatches[0] +
-                    "<br/> tag : " + (tagName ? tagName : "latest") +
-                    "<br/>" + (cloned.Spec.ContainerSpec.Args ? " cmd : " + cloned.Spec.ContainerSpec.Args + "<br/>" : "") +
-                    " updated : " + dateStamp +
-                    "<br/>" + (cloned.Status.ContainerStatus? cloned.Status.ContainerStatus.ContainerID : "null") +
-                    "<br/> state : " + startState +
+                    "<div style='display:grid; grid-template-columns: 1fr 1fr; grid-column-gap: 10px; grid-row-gap: 5px;'>" +
+                        "<div class='box'><b>image</b> : " + imageNameMatches[0].split("@")[0].split(":")[0] + "</div>" +
+                        "<div class='box'><b>tag</b> : " + (tagName ? tagName.split("@")[0] : "latest") + "</div>" +
+                        "<div class='box'><b>updated</b> : " + dateStamp + "</div>" +
+                        "<div class='box'><b>state</b> : " + startState + "</div>" +
+                    "</div>" +
                     "</div>";
 
                 if (node.Spec.Role == 'manager') {
@@ -208,7 +208,7 @@ let physicalStructProvider = ([initialNodes, initialContainers]) => {
             for (let container of containers) {
                 let contNodeId = container.NodeID;
                 let service = _.find(services, function(o) { return o.ID == container.ServiceID; });
-                
+
 		container.ServiceName = service? service.Spec.Name : "null";
                 for (var i = 0, iLen = nodes.length; i < iLen; i++) {
                     if (nodes[i].ID == contNodeId) {

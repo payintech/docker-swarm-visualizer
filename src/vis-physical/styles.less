@@ -88,20 +88,20 @@
   .node-cluster {
     //float: left;
     display: inline-block;
-    padding: 15px;
+    //padding: 15px;
     min-width: 80px;
     .clear();
 
   }
 
   .node{
-    float: left;
-    width: 200px;
-    margin-bottom: 20px;
-    margin-right: 10px;
-    &:last-child{
-      margin-right: 0;
-    }
+    //float: left;
+    //width: 200px;
+    //margin-bottom: 20px;
+    //margin-right: 10px;
+    //&:last-child{
+    //  margin-right: 0;
+    //}
   }
 
   .node-meta{
@@ -134,7 +134,7 @@
     flex-direction: column-reverse;
     background: @gray-darkerr;
     border: 2px solid lighten(@gray-darker,8%);
-    min-height: 500px;
+    min-height: 20px;
     .clear();
     &:last-child{
       margin-bottom: 0;
@@ -184,6 +184,11 @@
     background: @gray-darker;
     border: 2px solid lighten(@gray-darker,8%);
     padding: 15px;
+    display: grid;
+    width: 90vw;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    grid-column-gap: 10px;
+    grid-row-gap: 20px;
     .clear();
   }
   .node-cluster-content:empty {

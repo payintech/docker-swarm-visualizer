@@ -40,3 +40,11 @@ jspm_packages
 *.sh
 *.iml
 
+# Jetbrains
+.idea
+
+# Compiled file
+dist
+
+# Package lock
+package-lock.json
