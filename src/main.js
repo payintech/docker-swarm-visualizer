@@ -21,24 +21,13 @@ function parseQuery(qstr) {
 let query = parseQuery(window.location.search);
 let tabPhysical = document.getElementById('tab-physical');
 let physical = document.getElementById('vis-physical');
+let nodesMeta = document.getElementsByClassName('node-meta');
 
 tabPhysical.addEventListener('click',() => {
   removeClass(physical, 'hidden');
   removeClass(tabPhysical, 'hidden');
 
   document.body.className = 'tab2';
-});
-
-tabPhysical.addEventListener('click', () => {
-  let filterDiv = document.querySelector('#filter-wrapper');
-  if (filterDiv.classList.value.indexOf('hide') >= 0) {
-    filterDiv.classList.remove('hide');
-    filterDiv.classList.add('show');
-  }
-  else {
-    filterDiv.classList.add('hide');
-    filterDiv.classList.remove('show');
-  }
 });
 
 /* Enable polling */

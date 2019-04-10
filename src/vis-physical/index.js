@@ -16,12 +16,10 @@ var vis = d3.select('#app')
 var wrapper = vis.append('div')
     .classed('wrapper', true);
 
-let filterDiv = wrapper.append('div')
-    .attr('id', 'filter-wrapper');
-
-let filterInput = filterDiv.append('input')
+let filterInput = d3.select('#filter-wrapper')
+    .append('input')
     .attr('id', 'filter')
-    .attr('placeholder', 'filter containers');
+    .attr('placeholder', 'Search..');
 
 filterInput.on('keyup', filterContainers);
 filterOnLoad();
@@ -89,7 +87,7 @@ function render ({root}) {
       .append('div')
       .classed('node',true)
 
-  nodeEnter.append('div')
+  nodeEnter.append('label')
       .classed('node-meta',true);
 
   nodeEnter.append('div')

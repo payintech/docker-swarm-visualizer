@@ -56,6 +56,14 @@ let stringToColor = (str) => {
     return color;
 };
 
+let isObjectEmpty = (object) => {
+    for (var key in object) {
+        if (object.hasOwnProperty(key)) {
+            return true;
+        }
+    }
+    return false;
+}
 
 
 let physicalStructProvider = ([initialNodes, initialContainers]) => {
@@ -79,16 +87,13 @@ let physicalStructProvider = ([initialNodes, initialContainers]) => {
                 let dateStamp = dt.getDate() + "/" + (dt.getMonth() + 1) + "/" + dt.getFullYear() + " " + dt.getHours() + ":" + padStart(dt.getMinutes().toString(), 2, "0");
                 let startState = cloned.Status.State;
 
-
-
-
-                let imageTag = "<div style='height: 100%; padding: 5px 5px 5px 5px; border: 2px solid " + color + "'>" +
-                    "<span class='contname' style='color: white; font-weight: bold;font-size: 12px'>" + serviceName + "</span>" +
-                    "<div style='display:grid; grid-template-columns: 1fr 1fr; grid-column-gap: 10px; grid-row-gap: 5px;'>" +
+                let imageTag = "<div style='border-color:" + color + ";'>" +
+                    "<span class='container-name' style='color: white; font-weight: bold;font-size: 14px'>" + serviceName + "</span>" +
+                    "<div class='container-info'>" +
                         "<div class='box'><b>image</b> : " + imageNameMatches[0].split("@")[0].split(":")[0] + "</div>" +
                         "<div class='box'><b>tag</b> : " + (tagName ? tagName.split("@")[0] : "latest") + "</div>" +
-                        "<div class='box'><b>updated</b> : " + dateStamp + "</div>" +
                         "<div class='box'><b>state</b> : " + startState + "</div>" +
+                        "<div class='box'><b>updated</b> : " + dateStamp + "</div>" +
                     "</div>" +
                     "</div>";
 
@@ -173,15 +178,14 @@ let physicalStructProvider = ([initialNodes, initialContainers]) => {
                             name = node.Description.Hostname;
                             if (name.length > 0) {
                                 currentnode.Description.Hostname = name;
-                                currentnode.name = name + " <br/><span class='noderole'>" + node.Spec.Role +
-                                    "</span><br/><span class='nodemem'>" + (currentnode.Description.Resources.MemoryBytes / 1024 / 1024 / 1024).toFixed(3) + "G RAM</span><br/>" +
-                                    "<span class='nodeplatform'>" + (currentnode.Description.Platform.Architecture) + "/" + (currentnode.Description.Platform.OS) + "</span>" +
-                                    "<div class='labelarea'>";
+                                currentnode.name = "<span class='node-name'>" + name + "</span>" +
+                                    "<div class='node-role'" + (node.ManagerStatus ? ' data-leader=\'' + (node.ManagerStatus.Leader ? node.ManagerStatus.Leader : 'false') +'\'' : '') + ">" + node.Spec.Role + "</div>" +
+                                    "<div class='label-area' data-labels='" + (isObjectEmpty(node.Spec.Labels) ? 'true' : 'false') + "'>";
                                 for (var key in node.Spec.Labels) {
                                     if (node.Spec.Labels[key].length > 0) {
-                                        currentnode.name += " <br/><span class='nodelabel'>" + key + "=" + node.Spec.Labels[key] + "</span>";
+                                        currentnode.name += " <div class='node-label'>" + key + "=" + node.Spec.Labels[key] + "</div>";
                                     } else {
-                                        currentnode.name += " <br/><span class='nodelabel'>" + key + "</span>";
+                                        currentnode.name += " <div class='node-label'>" + key + "</div>";
                                     }
                                 }
                                 currentnode.name += "</div>"

@@ -23,7 +23,6 @@ html,body{
 }
 
 .tabs button{
-  height: 10px;
   background: none;
   outline: none;
   border:none;
@@ -34,24 +33,52 @@ html,body{
   }
 }
 
-.labelarea{
-  font-size: 45%;
+#tab-physical {
+  display: flex;
+  justify-content: space-evenly;
+  width: 100%;
+  align-items: flex-end;
+  flex-wrap: wrap;
 }
 
-.noderole{
+.label-area{
+  font-size: 45%;
+  display: none;
+
+  &[data-labels=true] {
+  }
+}
+
+.node-role{
   font-size: 90%;
   font-weight: bold;
 }
-.nodemem{
+.node-memory{
   font-size: 75%;
 }
-.nodeplatform{
+.node-platform{
   font-size: 80%;
 }
-.nodelabel{
+.node-label{
   font-style: italic;
 }
 
 #app {
   margin: 0 auto;
+}
+
+#filter-wrapper {
+  padding: 15px 0;
+}
+
+#filter {
+  padding: 6px 10px;
+  border-radius: 2px;
+  border-style: none;
+  outline: none;
+  flex-wrap: wrap;
+}
+
+#docker-wrapper {
+  width: 202px;
 }
